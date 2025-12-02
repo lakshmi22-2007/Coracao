@@ -1,10 +1,7 @@
 console.log("Hello world!");
-
 const myName = "Jonas Schmedtmann";
 const h1 = document.querySelector(".heading-primary");
 console.log(myName);
-console.log(h1);
-
 // h1.addEventListener("click", function () {
 //   h1.textContent = myName;
 //   h1.style.backgroundColor = "red";
@@ -15,7 +12,7 @@ console.log(h1);
 // Set current year
 const yearEl = document.querySelector(".year");
 const currentYear = new Date().getFullYear();
-yearEl.textContent = currentYear;
+if (yearEl) yearEl.textContent = currentYear;
 
 ///////////////////////////////////////////////////////////
 // Make mobile navigation work
@@ -23,9 +20,11 @@ yearEl.textContent = currentYear;
 const btnNavEl = document.querySelector(".btn-mobile-nav");
 const headerEl = document.querySelector(".header");
 
-btnNavEl.addEventListener("click", function () {
-  headerEl.classList.toggle("nav-open");
-});
+if (btnNavEl && headerEl) {
+  btnNavEl.addEventListener("click", function () {
+    headerEl.classList.toggle("nav-open");
+  });
+}
 
 ///////////////////////////////////////////////////////////
 // Smooth scrolling animation
@@ -47,11 +46,11 @@ allLinks.forEach(function (link) {
     // Scroll to other links
     if (href !== "#" && href.startsWith("#")) {
       const sectionEl = document.querySelector(href);
-      sectionEl.scrollIntoView({ behavior: "smooth" });
+      if (sectionEl) sectionEl.scrollIntoView({ behavior: "smooth" });
     }
 
-    // Close mobile naviagtion
-    if (link.classList.contains("main-nav-link"))
+    // Close mobile navigation
+    if (link.classList.contains("main-nav-link") && headerEl)
       headerEl.classList.toggle("nav-open");
   });
 });
@@ -61,27 +60,43 @@ allLinks.forEach(function (link) {
 
 const sectionHeroEl = document.querySelector(".section-hero");
 
-const obs = new IntersectionObserver(
-  function (entries) {
-    const ent = entries[0];
-    console.log(ent);
+if (sectionHeroEl) {
+  const obs = new IntersectionObserver(
+    function (entries) {
+      const ent = entries[0];
+      console.log('Hero section intersecting:', ent.isIntersecting);
 
-    if (ent.isIntersecting === false) {
-      document.body.classList.add("sticky");
-    }
+      if (ent.isIntersecting === false) {
+        console.log('Adding sticky class');
+        document.body.classList.add("sticky");
+      }
 
-    if (ent.isIntersecting === true) {
-      document.body.classList.remove("sticky");
+      if (ent.isIntersecting === true) {
+        console.log('Removing sticky class');
+        document.body.classList.remove("sticky");
+      }
+    },
+    {
+      // In the viewport
+      root: null,
+      threshold: 0,
+      rootMargin: "-50px",
     }
-  },
-  {
-    // In the viewport
-    root: null,
-    threshold: 0,
-    rootMargin: "-80px",
+  );
+  obs.observe(sectionHeroEl);
+} else {
+  console.log('Section hero not found');
+}
+
+// Fallback sticky header on scroll
+window.addEventListener('scroll', function() {
+  const scrollY = window.scrollY;
+  if (scrollY > 100) {
+    document.body.classList.add('sticky');
+  } else {
+    document.body.classList.remove('sticky');
   }
-);
-obs.observe(sectionHeroEl);
+});
 
 ///////////////////////////////////////////////////////////
 // Fixing flexbox gap property missing in some Safari versions
@@ -97,7 +112,6 @@ function checkFlexGap() {
   document.body.appendChild(flex);
   var isSupported = flex.scrollHeight === 1;
   flex.parentNode.removeChild(flex);
-  console.log(isSupported);
 
   if (!isSupported) document.body.classList.add("no-flexbox-gap");
 }

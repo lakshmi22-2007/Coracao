@@ -271,7 +271,7 @@ body {
   outline: none;
   /* outline: 4px dotted #e67e22; */
   /* outline-offset: 8px; */
-  box-shadow: 0 0 0 0.8rem rgba(230, 125, 34, 0.5);
+  box-shadow: 0 0 0 0.2 rem rgba(160, 159, 158, 0.5);
 }
 
 /* HELPER/SETTINGS CLASSES */
@@ -285,6 +285,13 @@ body {
 
 .center-text {
   text-align: center;
+}
+
+/* Ensure small utility section centers its contents even if surrounding layout is grid */
+.all-recipes {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.6rem;
 }
 
 strong {

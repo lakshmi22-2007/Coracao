@@ -207,17 +207,18 @@
   }
 
   .grid--footer {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3.2rem 2.4rem;
   }
 
   .logo-col,
   .address-col {
-    grid-column: span 3;
+    grid-column: span 1;
   }
 
   .nav-col {
     grid-row: 1;
-    grid-column: span 2;
+    grid-column: span 1;
     margin-bottom: 3.2rem;
   }
 }
@@ -227,6 +228,10 @@
 /**************************/
 
 @media (max-width: 34em) {
+  html {
+    /* 9px / 16px = 56.25% - increase base font-size for phones */
+    font-size: 56.25%;
+  }
   .grid {
     row-gap: 4.8rem;
   }
@@ -291,6 +296,73 @@
   .cta-img-box {
     height: 32rem;
     grid-row: 1;
+  }
+
+  /* Footer: when stacked on phones, center footer columns and social icons */
+  .footer .logo-col,
+  .footer .address-col,
+  .footer .nav-col {
+    text-align: center;
+  }
+
+  .footer .social-links {
+    justify-content: center;
+  }
+  
+  .footer .logo {
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Make footer layout stack vertically on small phones and reduce logo size
+     Switch to flex column so we can reorder blocks (show contact first) */
+  .grid--footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem 0;
+    align-items: center;
+  }
+
+  .footer .logo {
+    height: 8rem; /* increased mobile footer logo per request */
+    width: auto;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  /* Center flex items inside footer columns and make address text wrap */
+  .footer .logo-col,
+  .footer .address-col,
+  .footer .nav-col {
+    align-items: center;
+  }
+
+  .footer .contacts,
+  .footer .address {
+    text-align: center;
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  /* Order footer blocks for mobile: logo, company (nav), then contact+copyright */
+  .grid--footer .logo-col {
+    order: -2;
+    width: 100%;
+  }
+
+  .grid--footer .nav-col {
+    order: -1;
+    width: 100%;
+  }
+
+  .grid--footer .address-col {
+    order: 0;
+    width: 100%;
+  }
+
+  /* Remove auto bottom spacing so address isn't pushed out of view */
+  .footer .copyright {
+    margin-top: 1.2rem;
   }
 }
 
