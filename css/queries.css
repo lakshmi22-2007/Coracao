@@ -364,6 +364,49 @@
   .footer .copyright {
     margin-top: 1.2rem;
   }
+
+  /* Mobile layout tweaks */
+  .header {
+    padding: 0 1.6rem;
+    height: auto;
+    align-items: center;
+  }
+
+  .logo {
+    height: 6.6rem;
+    max-height: 6.6rem;
+  }
+
+  .hero {
+    gap: 3.2rem;
+  }
+
+  .delivered-imgs img {
+    height: 2.4rem;
+    width: auto;
+    margin-right: -0.6rem;
+  }
+
+  /* Center the small 5-star image in the CTA and ensure it scales */
+  .cta-text-box img {
+    margin-left: 0 !important;
+    margin: 0 auto 1rem !important;
+    display: block;
+    width: 120px;
+    height: auto;
+  }
+
+  .cta-text-box {
+    text-align: center;
+  }
+
+  .cta-image {
+    margin: 1rem auto 0;
+  }
+
+  .main-nav-link.nav-cta {
+    padding: 0.8rem 1.6rem;
+  }
 }
 
 /* 
